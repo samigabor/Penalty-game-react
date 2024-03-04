@@ -1,7 +1,9 @@
+import WalletConnector from './components/WalletConnector';
+
 function App() {
   return (
     <>
-      App
+      <WalletConnector />
     </>
   )
 }
