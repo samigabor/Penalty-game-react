@@ -7,19 +7,31 @@ import MembersList from './components/MembersList';
 import MemberForm from './components/MemberForm';
 import TransferRequestForm from './components/TransferRequestForm';
 import TransferRequestsList from './components/TransferRequestsList';
+import CommunitiesList from './components/CommunitiesList';
 
-const defaultMembers = [
+const dummyMembers = [
   { communityAddress: '0xabcdef', address: '0x123456', tokenId: '1' },
   { communityAddress: '0xabcdff', address: '0x123466', tokenId: '2' },
+];
+
+const dummyCommunities = [
+  { name: 'Comunity_1', symbol: 'C1', address: '0xaaaaaa', admin: '0x1111111' },
+  { name: 'Comunity_2', symbol: 'C2', address: '0xbbbbbb', admin: '0x2222222' },
 ];
 
 const defaultTransferRequests: { communityAddress: string, from: string, to: string, tokenId: string }[] = [];
 
 function App() {
   const account = useAccount();
-  const [members, setMembers] = useState(defaultMembers);
+  const [members, setMembers] = useState(dummyMembers);
+  const [communities, setCommunities] = useState(dummyCommunities);
   const [transferRequests, setTransferRequests] = useState(defaultTransferRequests);
-  // const [transfersInQueue, setTransfersInQueue] = useState(defaultTransferRequests);
+
+  const createCommunity = ({ name, symbol }: any) => {
+    console.log("createCommunity", { name, symbol });
+    setCommunities((prevCommunities) => [...prevCommunities, { name, symbol, address: "get from contract", admin: account.address || ""}]);
+    // TODO: connect to wallet & send tx
+  };
 
   const addToCommunity = ({ memberAddress, communityAddress }: any) => {
     console.log("addToCommunity", { communityAddress, memberAddress });
@@ -52,11 +64,12 @@ function App() {
         ? (
           <div>
             <Navbar />
-            <CommunityForm />
+            <CommunityForm createCommunity={createCommunity}/>
+            <CommunitiesList communities={communities} />
             <MemberForm addToCommunity={addToCommunity} />
+            <MembersList members={members} removeFromCommunity={removeFromCommunity} />
             <TransferRequestForm initiateTransferRequest={initiateTransferRequest} />
             <TransferRequestsList transferRequests={transferRequests} approveTransferRequest={approveTransferRequest} />
-            <MembersList members={members} removeFromCommunity={removeFromCommunity} />
           </div>
         ) : (
           <div>

@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { Button, TextField, Typography, Box, Grid } from '@mui/material';
 
-function CommunityForm() {
+function CommunityForm({ createCommunity }: any) {
   const [tokenName, setTokenName] = useState('');
   const [tokenSymbol, setTokenSymbol] = useState('');
 
   const handleOnSubmit = (event: any) => {
     event.preventDefault();
     console.log("CommunityForm.handleOnSubmit:", { tokenName, tokenSymbol });
+    createCommunity({ name: tokenName, symbol: tokenSymbol });
     // TODO: connect to wallet & deploy contract
   };
 
