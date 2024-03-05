@@ -1,29 +1,32 @@
 import { useState } from 'react';
 import { Button, TextField, Typography, Box, Grid } from '@mui/material';
 
-function AddMemberToCommunity({ addToCommunity }: any) {
+function TransferRequestForm({ initiateTransferRequest }: any) {
   const [communityAddress, setCommunityAddress] = useState('');
-  const [memberAddress, setMemberAddress] = useState('');
+  const [toMemberAddress, setToMemberAddress] = useState('');
   const [tokenId, setTokenId] = useState('');
 
   const handleOnSubmit = (event: any) => {
     event.preventDefault();
-    console.log("AddMemberToCommunity.handleOnSubmit:", { communityAddress, memberAddress, tokenId })
-    addToCommunity({ communityAddress, memberAddress, tokenId });
+    console.log("TransferRequestForm.handleOnSubmit:", { communityAddress, toMemberAddress, tokenId })
+    initiateTransferRequest({ communityAddress, toMemberAddress, tokenId });
   };
 
   return (
-    <Box sx={{ py: 6 }}>
+    <Box sx={{ py: 4 }}>
       <form onSubmit={handleOnSubmit}>
         <Grid container spacing={2} alignItems="flex-start">
           <Grid item xs={6}>
             <Typography variant="h4" gutterBottom>
-              Add Member To Community
+              Transfer My Token
+            </Typography>
+            <Typography variant="h6" gutterBottom>
+              Initiate a transfer request. Approval needed from other community member.
             </Typography>
           </Grid>
           <Grid item xs={6} textAlign="right">
             <Button type="submit" variant="contained" color="primary" sx={{ width: '100px' }}>
-              Add
+              Transfer
             </Button>
           </Grid>
         </Grid>
@@ -42,8 +45,8 @@ function AddMemberToCommunity({ addToCommunity }: any) {
             <TextField
               label="Member Address"
               variant="outlined"
-              value={memberAddress}
-              onChange={(e) => setMemberAddress(e.target.value)}
+              value={toMemberAddress}
+              onChange={(e) => setToMemberAddress(e.target.value)}
               fullWidth
               required
             />
@@ -64,4 +67,4 @@ function AddMemberToCommunity({ addToCommunity }: any) {
   );
 }
 
-export default AddMemberToCommunity;
+export default TransferRequestForm;

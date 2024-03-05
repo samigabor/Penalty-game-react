@@ -1,48 +1,51 @@
 import { useState } from 'react';
 import { Button, TextField, Typography, Box, Grid } from '@mui/material';
 
-function CreateCommunity() {
-  const [tokenName, setTokenName] = useState('');
-  const [tokenSymbol, setTokenSymbol] = useState('');
+function MemberForm({ addToCommunity }: any) {
+  const [communityAddress, setCommunityAddress] = useState('');
+  const [memberAddress, setMemberAddress] = useState('');
 
   const handleOnSubmit = (event: any) => {
     event.preventDefault();
-    console.log("CreateCommunity.handleOnSubmit:", { tokenName, tokenSymbol });
-    // TODO: connect to wallet & deploy contract
+    console.log("MemberForm.handleOnSubmit:", { communityAddress, memberAddress })
+    addToCommunity({ communityAddress, memberAddress });
   };
 
   return (
-    <Box sx={{ py: 6 }}>
+    <Box sx={{ py: 4 }}>
       <form onSubmit={handleOnSubmit}>
         <Grid container spacing={2} alignItems="flex-start">
           <Grid item xs={6}>
             <Typography variant="h4" gutterBottom>
-              Deploy community contract
+              Add Member To Community
+            </Typography>
+            <Typography variant="h6" gutterBottom>
+              Mint community token and assign member to community.
             </Typography>
           </Grid>
           <Grid item xs={6} textAlign="right">
             <Button type="submit" variant="contained" color="primary" sx={{ width: '100px' }}>
-              Deploy
+              Add
             </Button>
           </Grid>
         </Grid>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
-              label="Community Name"
+              label="Community Address"
               variant="outlined"
-              value={tokenName}
-              onChange={(e) => setTokenName(e.target.value)}
+              value={communityAddress}
+              onChange={(e) => setCommunityAddress(e.target.value)}
               fullWidth
               required
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-              label="Token Symbol"
+              label="Member Address"
               variant="outlined"
-              value={tokenSymbol}
-              onChange={(e) => setTokenSymbol(e.target.value)}
+              value={memberAddress}
+              onChange={(e) => setMemberAddress(e.target.value)}
               fullWidth
               required
             />
@@ -53,4 +56,4 @@ function CreateCommunity() {
   );
 }
 
-export default CreateCommunity;
+export default MemberForm;

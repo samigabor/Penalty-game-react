@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useAccount, useDisconnect } from 'wagmi'
 import { Toolbar, Button } from '@mui/material'
 
-function DisconnectWallet(): JSX.Element {
+function WalletDisconnector(): JSX.Element {
   const account = useAccount()
   const { disconnect } = useDisconnect()
   const [isHovered, setIsHovered] = useState(false);
@@ -29,4 +29,4 @@ function DisconnectWallet(): JSX.Element {
   );
 }
 
-export default DisconnectWallet;
+export default WalletDisconnector;

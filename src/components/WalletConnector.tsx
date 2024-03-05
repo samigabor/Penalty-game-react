@@ -1,7 +1,7 @@
 import { useConnect } from 'wagmi'
 import { Box, Button, Stack, Typography } from '@mui/material';
 
-function ConnectWallet(): JSX.Element {
+function WalletConnector(): JSX.Element {
   const { connectors, connect, status, error } = useConnect()
 
   return (
@@ -33,4 +33,4 @@ function ConnectWallet(): JSX.Element {
   );
 }
 
-export default ConnectWallet;
+export default WalletConnector;

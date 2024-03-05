@@ -1,11 +1,11 @@
 import { AppBar, Toolbar } from '@mui/material';
-import DisconnectWallet from './DisconnectWallet';
+import WalletDisconnector from './WalletDisconnector';
 
 function Navbar(): JSX.Element {
   return (
     <AppBar position="static" sx={{ backgroundColor: 'transparent', boxShadow: 'none' }}>
       <Toolbar sx={{ justifyContent: 'flex-end' }}>
-        <DisconnectWallet />
+        <WalletDisconnector />
       </Toolbar>
     </AppBar>
   );
