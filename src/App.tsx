@@ -1,10 +1,20 @@
-import WalletConnector from './components/WalletConnector';
+import { useAccount } from 'wagmi'
+import Navbar from './components/Navbar';
+import ConnectWallet from './components/ConnectWallet';
 
 function App() {
+  const account = useAccount()
+
   return (
-    <>
-      <WalletConnector />
-    </>
+    <div>
+      {account.status === 'connected'
+        ? (
+          <Navbar />
+        ) : (
+          <ConnectWallet />
+        )
+      }
+    </div>
   )
 }
 
