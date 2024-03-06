@@ -18,11 +18,11 @@ function WalletDisconnector(): JSX.Element {
           variant="contained"
           onClick={() => disconnect()}
           type="button"
-          sx={{ borderRadius: '999px', width: '140px' }}
+          sx={{ borderRadius: '999px', width: '500px', height: '60px' }}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          {isHovered ? 'Disconnect' : `${account.address?.slice(0, 6)}…${account.address?.slice(38, 42)}`}
+          {isHovered ? 'Disconnect' : `Chain Name: ${account.chain?.name} / Chain Id: ${account.chainId} ${account.address}`}
         </Button>
       </Toolbar>
     </div>

@@ -21,7 +21,7 @@ function WalletConnector(): JSX.Element {
             variant="contained"
             onClick={() => connect({ connector })}
             type="button"
-            sx={{ borderRadius: '999px', width: '300px' }}
+            sx={{ borderRadius: '999px', width: '500px', height: '60px' }}
           >
             {connector.name}
           </Button>
