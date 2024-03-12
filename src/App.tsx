@@ -14,17 +14,14 @@ const dummyMembers = [
   { communityAddress: '0xabcdff', address: '0x123466', tokenId: '2' },
 ];
 
-const dummyCommunities = [
-  { name: 'Comunity_1', symbol: 'C1', address: '0xaaaaaa', admin: '0x1111111' },
-  { name: 'Comunity_2', symbol: 'C2', address: '0xbbbbbb', admin: '0x2222222' },
-];
+const initialCommunities: { name: string, symbol: string, address: string, admin: string }[] = [];
 
 const defaultTransferRequests: { communityAddress: string, from: string, to: string, tokenId: string }[] = [];
 
 function App() {
   const account = useAccount();
   const [members, setMembers] = useState(dummyMembers);
-  const [communities, setCommunities] = useState(dummyCommunities);
+  const [communities, setCommunities] = useState(initialCommunities);
   const [transferRequests, setTransferRequests] = useState(defaultTransferRequests);
 
   const createCommunity = ({ name, symbol }: any) => {
@@ -65,7 +62,7 @@ function App() {
           <div>
             <Navbar />
             <CommunityForm createCommunity={createCommunity}/>
-            <CommunitiesList communities={communities} />
+            <CommunitiesList communities={communities} setCommunities={setCommunities} />
             <MemberForm addToCommunity={addToCommunity} />
             <MembersList members={members} removeFromCommunity={removeFromCommunity} />
             <TransferRequestForm initiateTransferRequest={initiateTransferRequest} />

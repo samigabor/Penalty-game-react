@@ -53,6 +53,11 @@ export const abi = [
         "type": "error"
     },
     {
+        "inputs": [],
+        "name": "OnlyCommunityAdmin",
+        "type": "error"
+    },
+    {
         "inputs": [
             {
                 "internalType": "address",
@@ -85,12 +90,31 @@ export const abi = [
             },
             {
                 "indexed": false,
+                "internalType": "address",
+                "name": "admin",
+                "type": "address"
+            }
+        ],
+        "name": "CommunityDeployed",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "contract CommunityToken",
+                "name": "community",
+                "type": "address"
+            },
+            {
+                "indexed": false,
                 "internalType": "uint256",
                 "name": "tokenId",
                 "type": "uint256"
             }
         ],
-        "name": "CommunityTokenCreated",
+        "name": "CommunityTokenMinted",
         "type": "event"
     },
     {
@@ -206,20 +230,115 @@ export const abi = [
     {
         "inputs": [
             {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "communities",
+        "outputs": [
+            {
                 "internalType": "contract CommunityToken",
-                "name": "community",
+                "name": "",
                 "type": "address"
             }
         ],
-        "name": "createCommunityToken",
-        "outputs": [
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
             {
                 "internalType": "uint256",
                 "name": "",
                 "type": "uint256"
             }
         ],
+        "name": "communitiesByAdmin",
+        "outputs": [
+            {
+                "internalType": "contract CommunityToken",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract CommunityToken",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "communityAdmins",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "symbol",
+                "type": "string"
+            }
+        ],
+        "name": "deployCommunityContract",
+        "outputs": [
+            {
+                "internalType": "contract CommunityToken",
+                "name": "community",
+                "type": "address"
+            }
+        ],
         "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getCommunities",
+        "outputs": [
+            {
+                "internalType": "contract CommunityToken[]",
+                "name": "",
+                "type": "address[]"
+            },
+            {
+                "internalType": "string[]",
+                "name": "",
+                "type": "string[]"
+            },
+            {
+                "internalType": "string[]",
+                "name": "",
+                "type": "string[]"
+            },
+            {
+                "internalType": "address[]",
+                "name": "",
+                "type": "address[]"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -244,6 +363,43 @@ export const abi = [
             }
         ],
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract CommunityToken",
+                "name": "community",
+                "type": "address"
+            }
+        ],
+        "name": "mintCommunityToken",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract CommunityToken",
+                "name": "community",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "member",
+                "type": "address"
+            }
+        ],
+        "name": "mintTokenToMember",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
