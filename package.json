@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "deploy": "vercel deploy --prod",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "biome check .",
