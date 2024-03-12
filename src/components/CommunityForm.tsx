@@ -1,15 +1,31 @@
 import { useState } from 'react';
+import { useWriteContract } from 'wagmi';
 import { Button, TextField, Typography, Box, Grid } from '@mui/material';
 
+import { abi } from '../abis/communityRegistry';
+import { COMMUNITY_REGISTRY_ADDRESS } from '../constants';
+
 function CommunityForm({ createCommunity }: any) {
+  const { data: hash, writeContract } = useWriteContract();
+
   const [tokenName, setTokenName] = useState('');
   const [tokenSymbol, setTokenSymbol] = useState('');
 
-  const handleOnSubmit = (event: any) => {
+  const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("CommunityForm.handleOnSubmit:", { tokenName, tokenSymbol });
+
+    const formData = new FormData(event.target as HTMLFormElement)
+    const tokenName = formData.get('tokenName') as string
+    const tokenSymbol = formData.get('tokenSymbol') as string
+
+    writeContract({
+      address: COMMUNITY_REGISTRY_ADDRESS,
+      abi,
+      functionName: 'deployCommunityContract',
+      args: [tokenName, tokenSymbol],
+    })
+
     createCommunity({ name: tokenName, symbol: tokenSymbol });
-    // TODO: connect to wallet & deploy contract
   };
 
   return (
@@ -21,7 +37,7 @@ function CommunityForm({ createCommunity }: any) {
               Create New Community
             </Typography>
             <Typography variant="h6" gutterBottom>
-              Deploy community contract.
+              Deploy community contract. {hash && <div>Transaction Hash: {hash}</div>}
             </Typography>
           </Grid>
           <Grid item xs={6} textAlign="right">
@@ -34,6 +50,7 @@ function CommunityForm({ createCommunity }: any) {
           <Grid item xs={12}>
             <TextField
               label="Community Name"
+              name="tokenName"
               variant="outlined"
               value={tokenName}
               onChange={(e) => setTokenName(e.target.value)}
@@ -44,6 +61,7 @@ function CommunityForm({ createCommunity }: any) {
           <Grid item xs={12}>
             <TextField
               label="Token Symbol"
+              name="tokenSymbol"
               variant="outlined"
               value={tokenSymbol}
               onChange={(e) => setTokenSymbol(e.target.value)}

@@ -26,8 +26,7 @@ function App() {
 
   const createCommunity = ({ name, symbol }: any) => {
     console.log("createCommunity", { name, symbol });
-    setCommunities((prevCommunities) => [...prevCommunities, { name, symbol, address: "get from contract", admin: account.address || ""}]);
-    // TODO: connect to wallet & send tx
+    setCommunities((prevCommunities) => [...prevCommunities, { name, symbol, address: "waiting for confirnation", admin: account.address || ""}]);
   };
 
   const addToCommunity = ({ memberAddress, communityAddress }: any) => {
