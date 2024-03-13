@@ -17,7 +17,17 @@ export const abi = [
     },
     {
         "inputs": [],
+        "name": "ApproveForYourselfDenied",
+        "type": "error"
+    },
+    {
+        "inputs": [],
         "name": "CommunityRegistryDoesNotAcceptTokenTransfers",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "CompleteForOthersDenied",
         "type": "error"
     },
     {
@@ -54,6 +64,37 @@ export const abi = [
     },
     {
         "inputs": [],
+        "name": "NotApprovedRequest",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "NotPendingRequest",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "owner",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "sender",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            }
+        ],
+        "name": "NotTheTokenOwner",
+        "type": "error"
+    },
+    {
+        "inputs": [],
         "name": "OnlyCommunityAdmin",
         "type": "error"
     },
@@ -77,6 +118,32 @@ export const abi = [
             }
         ],
         "name": "OwnableUnauthorizedAccount",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "from",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            }
+        ],
+        "name": "TransferFailed",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "TransferToZeroAddressDenied",
         "type": "error"
     },
     {
@@ -187,6 +254,43 @@ export const abi = [
         "type": "event"
     },
     {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "enum RequestStatus",
+                "name": "status",
+                "type": "uint8"
+            }
+        ],
+        "name": "UpdateTransferRequest",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract CommunityToken",
+                "name": "community",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            }
+        ],
+        "name": "approveTransferRequest",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "contract CommunityToken",
@@ -292,6 +396,43 @@ export const abi = [
     {
         "inputs": [
             {
+                "internalType": "contract CommunityToken",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "communityMembers",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract CommunityToken",
+                "name": "community",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            }
+        ],
+        "name": "completeTransferRequest",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "string",
                 "name": "name",
                 "type": "string"
@@ -339,6 +480,29 @@ export const abi = [
             }
         ],
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "contract CommunityToken",
+                "name": "community",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            }
+        ],
+        "name": "initiateTransferRequest",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {

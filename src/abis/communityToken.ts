@@ -10,6 +10,11 @@ export const abi = [
                 "internalType": "string",
                 "name": "symbol",
                 "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "initialOwner",
+                "type": "address"
             }
         ],
         "stateMutability": "nonpayable",
@@ -122,49 +127,6 @@ export const abi = [
         "inputs": [
             {
                 "internalType": "address",
-                "name": "member",
-                "type": "address"
-            }
-        ],
-        "name": "MemberNotInCommunity",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "enum RequestStatus",
-                "name": "status",
-                "type": "uint8"
-            }
-        ],
-        "name": "OnlyApprovedRequestCanBeCompleted",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "enum RequestStatus",
-                "name": "status",
-                "type": "uint8"
-            }
-        ],
-        "name": "OnlyPendingRequestCanBeApproved",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
                 "name": "owner",
                 "type": "address"
             },
@@ -202,43 +164,6 @@ export const abi = [
             }
         ],
         "name": "OwnableUnauthorizedAccount",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "TransferRequestNotApproved",
-        "type": "error"
-    },
-    {
-        "inputs": [],
-        "name": "TransferRequestToZeroAddress",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "from",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "UnableToCompleteTransferRequest",
         "type": "error"
     },
     {
@@ -368,35 +293,8 @@ export const abi = [
         "type": "event"
     },
     {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "internalType": "address",
-                "name": "from",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "internalType": "enum RequestStatus",
-                "name": "status",
-                "type": "uint8"
-            }
-        ],
-        "name": "UpdateTransferRequest",
-        "type": "event"
+        "stateMutability": "nonpayable",
+        "type": "fallback"
     },
     {
         "inputs": [
@@ -412,19 +310,6 @@ export const abi = [
             }
         ],
         "name": "approve",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "approveTransferRequest",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -469,19 +354,6 @@ export const abi = [
                 "type": "uint256"
             }
         ],
-        "name": "completeTransferRequest",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
         "name": "getApproved",
         "outputs": [
             {
@@ -491,60 +363,6 @@ export const abi = [
             }
         ],
         "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "getTransferRequest",
-        "outputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "address",
-                        "name": "from",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "to",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "enum RequestStatus",
-                        "name": "status",
-                        "type": "uint8"
-                    }
-                ],
-                "internalType": "struct TransferRequest",
-                "name": "",
-                "type": "tuple"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "initiateTransferRequest",
-        "outputs": [],
-        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -799,29 +617,6 @@ export const abi = [
             }
         ],
         "name": "transferOwnership",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "enum RequestStatus",
-                "name": "status",
-                "type": "uint8"
-            },
-            {
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            }
-        ],
-        "name": "updateRequestStatus",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
