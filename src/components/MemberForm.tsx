@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Button, TextField, Typography, Box, Grid } from '@mui/material';
 import { useWriteContract } from 'wagmi';
-import { COMMUNITY_REGISTRY_ADDRESS } from '../constants';
+import { Button, TextField, Typography, Box, Grid } from '@mui/material';
+
 import { abi } from '../abis/communityRegistry';
+import { COMMUNITY_REGISTRY_ADDRESS } from '../constants';
+import { isValidAddress } from '../helpers';
 
 
 function MemberForm({ addToCommunity }: any) {
@@ -28,10 +30,6 @@ function MemberForm({ addToCommunity }: any) {
 
     addToCommunity({ communityAddress, memberAddress });
   };
-
-  const isValidAddress = (address: string) => {
-    return address.startsWith('0x') && address.length === 42;
-  }
 
   return (
     <Box sx={{ py: 4 }}>

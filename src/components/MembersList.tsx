@@ -1,4 +1,5 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
+
 import { Member } from '../types';
 
 function MembersList({ members, removeFromCommunity }: { members: Member[], removeFromCommunity: any }) {

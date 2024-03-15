@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
+
 import Navbar from './components/Navbar';
 import WalletConnector from './components/WalletConnector';
 import CommunityForm from './components/CommunityForm';
@@ -8,6 +9,7 @@ import MemberForm from './components/MemberForm';
 import TransferRequestForm from './components/TransferRequestForm';
 import TransferRequestsList from './components/TransferRequestsList';
 import CommunitiesList from './components/CommunitiesList';
+
 import { Community, Member, TransferRequest } from './types';
 
 
@@ -19,18 +21,17 @@ function App() {
   const [communities, setCommunities] = useState([] as Community[]);
   const [transferRequests, setTransferRequests] = useState([] as TransferRequest[]);
 
-  const createCommunity = ({ name, symbol }: any) => {
+  const createCommunity = ({ name, symbol }: { name: string, symbol: string }) => {
     setCommunities((prevCommunities) => [...prevCommunities, { name, symbol, address: "0x...", admin: account.address || "0x..." }]);
   };
 
-  const addToCommunity = ({ memberAddress, communityAddress }: any) => {
+  const addToCommunity = ({ memberAddress, communityAddress }: { memberAddress: string, communityAddress: string }) => {
     setMembers((prevMembers) => [...prevMembers, { communityAddress, address: memberAddress, tokenId: `${prevMembers.length + 1}` }]);
   };
 
-  const initiateTransferRequest = ({ communityAddress, toMemberAddress, tokenId }: any) => {
+  const initiateTransferRequest = ({ communityAddress, toMemberAddress, tokenId }: { communityAddress: string, toMemberAddress: string, tokenId: string }) => {
     console.log("initiateTransferRequest", { communityAddress, from: account.address, to: toMemberAddress, tokenId });
-    setTransferRequests((prevRequests) => [...prevRequests, { communityAddress, from: account.address || "", to: toMemberAddress, tokenId }]);
-    // TODO: connect to wallet & send tx
+    setTransferRequests((prevRequests) => [...prevRequests, { communityAddress, from: account.address || "0x...", to: toMemberAddress, tokenId }]);
   };
 
   const approveTransferRequest = (transferRequest: any) => {

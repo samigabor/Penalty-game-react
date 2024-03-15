@@ -1,14 +1,33 @@
 import { useState } from 'react';
+import { useWriteContract } from 'wagmi';
 import { Button, TextField, Typography, Box, Grid } from '@mui/material';
 
+import { abi } from '../abis/communityRegistry';
+import { isValidAddress } from '../helpers';
+import { COMMUNITY_REGISTRY_ADDRESS } from '../constants';
+
 function TransferRequestForm({ initiateTransferRequest }: any) {
+  const { data: hash, writeContract } = useWriteContract();
+
   const [communityAddress, setCommunityAddress] = useState('');
   const [toMemberAddress, setToMemberAddress] = useState('');
   const [tokenId, setTokenId] = useState('');
 
   const handleOnSubmit = (event: any) => {
     event.preventDefault();
-    console.log("TransferRequestForm.handleOnSubmit:", { communityAddress, toMemberAddress, tokenId })
+
+    if (!isValidAddress(communityAddress) || !isValidAddress(toMemberAddress)) {
+      alert('Community Address or Member Address provided is incorrect!');
+      return;
+    }
+
+    writeContract({
+      address: COMMUNITY_REGISTRY_ADDRESS,
+      abi,
+      functionName: 'initiateTransferRequest',
+      args: [communityAddress as `0x${string}`, toMemberAddress as `0x${string}`, BigInt(tokenId)],
+    })
+
     initiateTransferRequest({ communityAddress, toMemberAddress, tokenId });
   };
 
@@ -21,7 +40,7 @@ function TransferRequestForm({ initiateTransferRequest }: any) {
               Transfer My Token
             </Typography>
             <Typography variant="h6" gutterBottom>
-              Initiate a transfer request. Approval needed from other community member.
+              Initiate a transfer request. Approval needed from other community member. {hash && <div>Transaction Hash: {hash}</div>}
             </Typography>
           </Grid>
           <Grid item xs={6} textAlign="right">
