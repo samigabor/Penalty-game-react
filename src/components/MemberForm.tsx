@@ -1,15 +1,37 @@
 import { useState } from 'react';
 import { Button, TextField, Typography, Box, Grid } from '@mui/material';
+import { useWriteContract } from 'wagmi';
+import { COMMUNITY_REGISTRY_ADDRESS } from '../constants';
+import { abi } from '../abis/communityRegistry';
+
 
 function MemberForm({ addToCommunity }: any) {
+  const { data: hash, writeContract } = useWriteContract();
+  
   const [communityAddress, setCommunityAddress] = useState('');
   const [memberAddress, setMemberAddress] = useState('');
 
   const handleOnSubmit = (event: any) => {
     event.preventDefault();
-    console.log("MemberForm.handleOnSubmit:", { communityAddress, memberAddress })
+
+    if (!isValidAddress(communityAddress) || !isValidAddress(memberAddress)) {
+      alert('Community Address or Member Address provided is incorrect!');
+      return;
+    }
+
+    writeContract({
+      address: COMMUNITY_REGISTRY_ADDRESS,
+      abi,
+      functionName: 'mintTokenToMember',
+      args: [communityAddress as `0x${string}`, memberAddress as `0x${string}`],
+    })
+
     addToCommunity({ communityAddress, memberAddress });
   };
+
+  const isValidAddress = (address: string) => {
+    return address.startsWith('0x') && address.length === 42;
+  }
 
   return (
     <Box sx={{ py: 4 }}>
@@ -20,7 +42,7 @@ function MemberForm({ addToCommunity }: any) {
               Add Member To Community
             </Typography>
             <Typography variant="h6" gutterBottom>
-              Mint community token and assign member to community.
+              Mint community token and assign member to community. {hash && <div>Transaction Hash: {hash}</div>}
             </Typography>
           </Grid>
           <Grid item xs={6} textAlign="right">

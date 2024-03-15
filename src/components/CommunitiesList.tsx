@@ -4,8 +4,9 @@ import { Box, Grid, Typography } from '@mui/material';
 
 import { abi } from '../abis/communityRegistry';
 import { COMMUNITY_REGISTRY_ADDRESS } from '../constants';
+import { Community } from '../types';
 
-function CommunitiesList({ communities, setCommunities }: any) {
+function CommunitiesList({ communities, setCommunities }: { communities: Community[], setCommunities: any }) {
 
   const { data } = useReadContract({
     abi,
@@ -46,7 +47,7 @@ function CommunitiesList({ communities, setCommunities }: any) {
           <Typography variant="body1" fontWeight="bold">Admin Address</Typography>
         </Grid>
       </Grid>
-      {communities.map((community: any, index: number) => (
+      {communities.map((community: Community, index: number) => (
         <Grid key={index} container spacing={2} alignItems="center" sx={{ py: 1 }}>
           <Grid item xs={2}>
             <Typography variant="body1">{community.name}</Typography>

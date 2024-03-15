@@ -1,6 +1,7 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
+import { Member } from '../types';
 
-function MembersList({ members, removeFromCommunity }: any) {
+function MembersList({ members, removeFromCommunity }: { members: Member[], removeFromCommunity: any }) {
   return (
     <Box sx={{ py: 4 }}>
       <Typography variant="h4" gutterBottom>
@@ -20,7 +21,7 @@ function MembersList({ members, removeFromCommunity }: any) {
           <Typography variant="body1" fontWeight="bold">Actions</Typography>
         </Grid>
       </Grid>
-      {members.map((member: any, index: number) => (
+      {members.map((member: Member, index: number) => (
         <Grid key={index} container spacing={2} alignItems="center" sx={{ py: 1 }}>
           <Grid item xs={5}>
             <Typography variant="body1">{member.communityAddress}</Typography>

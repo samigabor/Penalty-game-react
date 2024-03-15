@@ -8,31 +8,23 @@ import MemberForm from './components/MemberForm';
 import TransferRequestForm from './components/TransferRequestForm';
 import TransferRequestsList from './components/TransferRequestsList';
 import CommunitiesList from './components/CommunitiesList';
+import { Community, Member, TransferRequest } from './types';
 
-const dummyMembers = [
-  { communityAddress: '0xabcdef', address: '0x123456', tokenId: '1' },
-  { communityAddress: '0xabcdff', address: '0x123466', tokenId: '2' },
-];
 
-const initialCommunities: { name: string, symbol: string, address: string, admin: string }[] = [];
-
-const defaultTransferRequests: { communityAddress: string, from: string, to: string, tokenId: string }[] = [];
 
 function App() {
   const account = useAccount();
-  const [members, setMembers] = useState(dummyMembers);
-  const [communities, setCommunities] = useState(initialCommunities);
-  const [transferRequests, setTransferRequests] = useState(defaultTransferRequests);
+
+  const [members, setMembers] = useState([] as Member[]);
+  const [communities, setCommunities] = useState([] as Community[]);
+  const [transferRequests, setTransferRequests] = useState([] as TransferRequest[]);
 
   const createCommunity = ({ name, symbol }: any) => {
-    console.log("createCommunity", { name, symbol });
-    setCommunities((prevCommunities) => [...prevCommunities, { name, symbol, address: "waiting for confirnation", admin: account.address || ""}]);
+    setCommunities((prevCommunities) => [...prevCommunities, { name, symbol, address: "0x...", admin: account.address || "0x..." }]);
   };
 
   const addToCommunity = ({ memberAddress, communityAddress }: any) => {
-    console.log("addToCommunity", { communityAddress, memberAddress });
     setMembers((prevMembers) => [...prevMembers, { communityAddress, address: memberAddress, tokenId: `${prevMembers.length + 1}` }]);
-    // TODO: connect to wallet & send tx
   };
 
   const initiateTransferRequest = ({ communityAddress, toMemberAddress, tokenId }: any) => {
@@ -60,7 +52,7 @@ function App() {
         ? (
           <div>
             <Navbar />
-            <CommunityForm createCommunity={createCommunity}/>
+            <CommunityForm createCommunity={createCommunity} />
             <CommunitiesList communities={communities} setCommunities={setCommunities} />
             <MemberForm addToCommunity={addToCommunity} />
             <MembersList members={members} removeFromCommunity={removeFromCommunity} />
