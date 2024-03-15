@@ -22,12 +22,12 @@ function CommunitiesList({ communities, setCommunities }: { communities: Communi
       const communityAdmins = data[3];
       const allCommunities = [];
       for (let i = 0; i < communityAddressed.length; i++) {
-        allCommunities.push({ name: communityNames[i], symbol: communitySymbols[i], address: communityAddressed[i], admin: communityAdmins[i]});
+        allCommunities.push({ name: communityNames[i], symbol: communitySymbols[i], address: communityAddressed[i], admin: communityAdmins[i] });
       }
       setCommunities(allCommunities);
     }
   }, [data])
-  
+
   return (
     <Box sx={{ py: 4 }}>
       <Typography variant="h4" gutterBottom>
@@ -47,22 +47,25 @@ function CommunitiesList({ communities, setCommunities }: { communities: Communi
           <Typography variant="body1" fontWeight="bold">Admin Address</Typography>
         </Grid>
       </Grid>
-      {communities.map((community: Community, index: number) => (
-        <Grid key={index} container spacing={2} alignItems="center" sx={{ py: 1 }}>
-          <Grid item xs={2}>
-            <Typography variant="body1">{community.name}</Typography>
+      {communities.length
+        ? communities.map((community: Community, index: number) => (
+          <Grid key={index} container spacing={2} alignItems="center" sx={{ py: 1 }}>
+            <Grid item xs={2}>
+              <Typography variant="body1">{community.name}</Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <Typography variant="body1">{community.symbol}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography variant="body1">{community.address}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography variant="body1">{community.admin}</Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={2}>
-            <Typography variant="body1">{community.symbol}</Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <Typography variant="body1">{community.address}</Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <Typography variant="body1">{community.admin}</Typography>
-          </Grid>
-        </Grid>
-      ))}
+        ))
+        : <Typography variant="body1">No communities were created</Typography>
+      }
     </Box>
   );
 }
