@@ -33,13 +33,13 @@ export const abi = [
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "member",
+                "internalType": "contract CommunityToken",
+                "name": "community",
                 "type": "address"
             },
             {
-                "internalType": "contract CommunityToken",
-                "name": "community",
+                "internalType": "address",
+                "name": "member",
                 "type": "address"
             }
         ],
@@ -49,13 +49,13 @@ export const abi = [
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "member",
+                "internalType": "contract CommunityToken",
+                "name": "community",
                 "type": "address"
             },
             {
-                "internalType": "contract CommunityToken",
-                "name": "community",
+                "internalType": "address",
+                "name": "member",
                 "type": "address"
             }
         ],
@@ -334,51 +334,8 @@ export const abi = [
     {
         "inputs": [
             {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "communities",
-        "outputs": [
-            {
                 "internalType": "contract CommunityToken",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "communitiesByAdmin",
-        "outputs": [
-            {
-                "internalType": "contract CommunityToken",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "contract CommunityToken",
-                "name": "",
+                "name": "community",
                 "type": "address"
             }
         ],
@@ -386,7 +343,7 @@ export const abi = [
         "outputs": [
             {
                 "internalType": "address",
-                "name": "",
+                "name": "admin",
                 "type": "address"
             }
         ],
@@ -396,15 +353,15 @@ export const abi = [
     {
         "inputs": [
             {
-                "internalType": "contract CommunityToken",
+                "internalType": "uint256",
                 "name": "",
-                "type": "address"
+                "type": "uint256"
             }
         ],
-        "name": "communityMembers",
+        "name": "communityList",
         "outputs": [
             {
-                "internalType": "address",
+                "internalType": "contract CommunityToken",
                 "name": "",
                 "type": "address"
             }
@@ -456,27 +413,69 @@ export const abi = [
     },
     {
         "inputs": [],
-        "name": "getCommunities",
+        "name": "getCommunitiesInfo",
         "outputs": [
             {
-                "internalType": "contract CommunityToken[]",
+                "components": [
+                    {
+                        "internalType": "contract CommunityToken",
+                        "name": "token",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "symbol",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "admin",
+                        "type": "address"
+                    }
+                ],
+                "internalType": "struct CommunityRegistry.CommunityInfo[]",
                 "name": "",
-                "type": "address[]"
-            },
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getMembersInfo",
+        "outputs": [
             {
-                "internalType": "string[]",
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "addr",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "contract CommunityToken",
+                        "name": "community",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "tokenId",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "enum RequestStatus",
+                        "name": "requestStatus",
+                        "type": "uint8"
+                    }
+                ],
+                "internalType": "struct CommunityRegistry.MemberInfo[][]",
                 "name": "",
-                "type": "string[]"
-            },
-            {
-                "internalType": "string[]",
-                "name": "",
-                "type": "string[]"
-            },
-            {
-                "internalType": "address[]",
-                "name": "",
-                "type": "address[]"
+                "type": "tuple[][]"
             }
         ],
         "stateMutability": "view",
@@ -508,13 +507,13 @@ export const abi = [
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "member",
+                "internalType": "contract CommunityToken",
+                "name": "community",
                 "type": "address"
             },
             {
-                "internalType": "contract CommunityToken",
-                "name": "community",
+                "internalType": "address",
+                "name": "member",
                 "type": "address"
             }
         ],
@@ -524,6 +523,83 @@ export const abi = [
                 "internalType": "bool",
                 "name": "",
                 "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "member",
+                "type": "address"
+            }
+        ],
+        "name": "isMemberInList",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "memberList",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "member",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "membersInfo",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "addr",
+                "type": "address"
+            },
+            {
+                "internalType": "contract CommunityToken",
+                "name": "community",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "enum RequestStatus",
+                "name": "requestStatus",
+                "type": "uint8"
             }
         ],
         "stateMutability": "view",
@@ -616,13 +692,13 @@ export const abi = [
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "member",
+                "internalType": "contract CommunityToken",
+                "name": "community",
                 "type": "address"
             },
             {
-                "internalType": "contract CommunityToken",
-                "name": "community",
+                "internalType": "address",
+                "name": "member",
                 "type": "address"
             }
         ],

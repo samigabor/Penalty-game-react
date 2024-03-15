@@ -1,13 +1,13 @@
 export type Member = {
     communityAddress: string;
     address: string;
-    tokenId: string;
+    tokenId: number;
 };
 
 export type Community = {
+    token: string;
     name: string;
     symbol: string;
-    address: string;
     admin: string;
 };
 

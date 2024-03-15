@@ -11,20 +11,12 @@ function CommunitiesList({ communities, setCommunities }: { communities: Communi
   const { data } = useReadContract({
     abi,
     address: COMMUNITY_REGISTRY_ADDRESS,
-    functionName: 'getCommunities',
+    functionName: 'getCommunitiesInfo',
   })
 
   useEffect(() => {
-    if (data && data[0]) {
-      const communityAddressed = data[0];
-      const communityNames = data[1];
-      const communitySymbols = data[2];
-      const communityAdmins = data[3];
-      const allCommunities = [];
-      for (let i = 0; i < communityAddressed.length; i++) {
-        allCommunities.push({ name: communityNames[i], symbol: communitySymbols[i], address: communityAddressed[i], admin: communityAdmins[i] });
-      }
-      setCommunities(allCommunities);
+    if (data?.length) {
+      setCommunities([...data]);
     }
   }, [data])
 
@@ -57,7 +49,7 @@ function CommunitiesList({ communities, setCommunities }: { communities: Communi
               <Typography variant="body1">{community.symbol}</Typography>
             </Grid>
             <Grid item xs={4}>
-              <Typography variant="body1">{community.address}</Typography>
+              <Typography variant="body1">{community.token}</Typography>
             </Grid>
             <Grid item xs={4}>
               <Typography variant="body1">{community.admin}</Typography>

@@ -22,11 +22,11 @@ function App() {
   const [transferRequests, setTransferRequests] = useState([] as TransferRequest[]);
 
   const createCommunity = ({ name, symbol }: { name: string, symbol: string }) => {
-    setCommunities((prevCommunities) => [...prevCommunities, { name, symbol, address: "0x...", admin: account.address || "0x..." }]);
+    setCommunities((prevCommunities) => [...prevCommunities, { name, symbol, token: "0x...", admin: account.address || "0x..." }]);
   };
 
   const addToCommunity = ({ memberAddress, communityAddress }: { memberAddress: string, communityAddress: string }) => {
-    setMembers((prevMembers) => [...prevMembers, { communityAddress, address: memberAddress, tokenId: `${prevMembers.length + 1}` }]);
+    setMembers((prevMembers) => [...prevMembers, { communityAddress, address: memberAddress, tokenId: prevMembers.length + 1 }]);
   };
 
   const initiateTransferRequest = ({ communityAddress, toMemberAddress, tokenId }: { communityAddress: string, toMemberAddress: string, tokenId: string }) => {
@@ -56,7 +56,7 @@ function App() {
             <CommunityForm createCommunity={createCommunity} />
             <CommunitiesList communities={communities} setCommunities={setCommunities} />
             <MemberForm addToCommunity={addToCommunity} />
-            <MembersList members={members} removeFromCommunity={removeFromCommunity} />
+            <MembersList members={members} setMembers={setMembers} removeFromCommunity={removeFromCommunity} />
             <TransferRequestForm initiateTransferRequest={initiateTransferRequest} />
             <TransferRequestsList transferRequests={transferRequests} approveTransferRequest={approveTransferRequest} />
           </div>
