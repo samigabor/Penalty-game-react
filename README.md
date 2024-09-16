@@ -1,4 +1,4 @@
-## Community Builder
+## Penalty Game
 
 Front-end application managing community tokens enables:
 - creation of tokens associated with communities
